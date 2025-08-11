@@ -1,0 +1,25 @@
+Guide rapide pour lancer le projet Django REST
+
+1. Cloner le projet
+   git clone <URL_du_projet>
+   cd <nom_du_dossier>
+
+2. Créer un environnement virtuel et installer les dépendances
+   python -m venv venv
+   # Activer l'environnement :
+   # Windows : venv/Scripts/activate
+ 
+ #-------------- important pour tout installer ensemble-----
+   
+  pip install django, djangorestframework, drf-yasg
+
+3. Appliquer les migrations
+   python manage.py migrate
+
+4. Lancer le serveur
+   python manage.py runserver
+
+5. Accéder à l'API et Swagger UI
+   Ouvrir dans un navigateur : http://127.0.0.1:8000/swagger/
+   
+

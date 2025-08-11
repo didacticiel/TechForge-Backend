@@ -1,0 +1,79 @@
+
+
+
+
+#----------------------
+1. Création du projet Django et de l’application
+On crée un projet Django avec la commande django-admin startproject.
+
+On crée une application dédiée à notre API, ici nommée api avec python manage.py s
+tartapp api.
+
+On ajoute l’app api dans le fichier settings.py dans INSTALLED_APPS.
+
+2. Modélisation des données
+On définit dans api/models.py les classes principales :
+
+Employe : pour stocker les informations des employés (nom, email, rôle).
+
+Presence : pour enregistrer la présence quotidienne (date, heure arrivée, 
+heure sortie, employé associé).
+
+Rapport : pour générer des rapports de présence selon différentes périodes 
+(journalier, hebdomadaire, etc.).
+
+Chaque modèle possède des méthodes utiles pour gérer les actions métiers 
+(ex : enregistrer_arrivee, enregistrer_sortie).
+
+3. Sérialisation des données
+Dans api/serializers.py, on crée des serializers pour convertir 
+les objets Python (modèles Django) en JSON (format utilisable par les clients API) et inversement.
+
+On crée un serializer par modèle : EmployeSerializer, PresenceSerializer, RapportSerializer.
+
+Dans EmployeSerializer, on imbrique les présences pour afficher l’historique complet.
+
+4. Création des vues (ViewSets)
+On crée des ViewSets dans api/views.py pour gérer automatiquement les opérations CRUD :
+
+EmployeViewSet, PresenceViewSet, RapportViewSet héritent de ModelViewSet.
+
+On ajoute des actions personnalisées avec @action pour des fonctionnalités spécifiques comme enregistrer l’arrivée ou la sortie d’un employé.
+
+5. Configuration des URLs
+Dans urls.py principal du projet, on crée un DefaultRouter qui génère automatiquement les routes basées sur les ViewSets.
+
+On inclut ce router dans les URL sous le préfixe /api/ pour organiser clairement les endpoints.
+
+On configure la documentation interactive Swagger via drf-yasg, accessible par /swagger/.
+
+6. Lancement et test de l’API
+On lance le serveur Django avec python manage.py runserver.
+
+#----------------------------------la doc est ici ---------------------
+On accède à la documentation Swagger sur http://127.0.0.1:8000/swagger/ où l’on peut :
+
+Visualiser tous les endpoints (/api/employes/, /api/presences/, /api/rapports/).
+
+Tester les requêtes GET, POST, PUT, PATCH, DELETE directement depuis le navigateur.
+
+Utiliser les actions personnalisées comme enregistrer_arrivee et enregistrer_sortie.
+
+
+
+
+#-------------------------------------    Note   ---------
+#----------------------------------                      --------------
+NOTE:
+Limitations et prochaines étapes
+Pour l’instant, il n’y a pas d’authentification ni gestion des permissions. 
+Cela signifie que n’importe qui peut accéder à l’API et modifier les données.
+
+Nous prévoyons ensuite d’implémenter des vues avec APIView et le décorateur @api_view, 
+pour mieux contrôler les requêtes et comprendre le fonctionnement détaillé des API.
+
+L’ajout de l’authentification (par exemple avec JWT ou sessions) viendra aussi 
+renforcer la sécurité de l’API.
+------------------------------------------
+
+######################################################  Merci
